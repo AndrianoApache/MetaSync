@@ -42,9 +42,8 @@ metasync.parallel = function(fns, done, data) {
       var finish = function(result) {
         if (fn.name && result) data[fn.name] = result;
         if (result instanceof Error) {
-          if (!finished) {
-            if (done) done(result);
-          }
+          if (!finished && done) 
+            return done(result);
           finished = true;
         } else {
           if (++counter >= len) {
